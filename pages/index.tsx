@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 const Home: NextPage = () => {
-  const exercises = ["1", "2", "3", "4"];
+  const exercises = ["1", "2", "3", "4", "5", "6"];
   return (
     <div>
       <Head>

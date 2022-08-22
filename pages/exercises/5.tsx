@@ -3,26 +3,31 @@ import React, { useState } from "react";
 
 type CompounTypes = { on: boolean; children: JSX.Element };
 
-const lessonName = "Render Props";
+const lessonName = "Prop collections";
 
 const Toggler = ({ children }: { children: any }) => {
   const [isOn, setIsOn] = useState(false);
 
   const toggle = () => setIsOn((prev) => !prev);
 
-  return children({ on: isOn, onClick: toggle });
+   const getStateAndHellpers = () => ({ on: isOn, toggle: toggle, togglerProps: {
+    onClick: toggle,
+    'aria-pressed': isOn
+  } })
+  
+  return children(getStateAndHellpers());
 };
 
 const Usage = () => {
   return (
     <Toggler>
-      {({ on, onClick }) => (
+      {({ on, togglerProps }) => (
         <div>
           {on ? "This button is on" : "The button is off"}
-          <Switch on={on} onClick={onClick} lesson={lessonName} />
+          <Switch on={on} {...togglerProps} lesson={lessonName} />
           <hr />
-          <button onClick={onClick}>{on ? "on" : "off"}</button>
-          <Switch on={on} onClick={onClick} lesson={lessonName} />
+          <button {...togglerProps} onClick={() => alert("Small button has been pressed")}>{on ? "on" : "off"}</button>
+          <Switch on={on} {...togglerProps} lesson={lessonName} />
 
         </div>
       )}
